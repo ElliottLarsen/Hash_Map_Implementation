@@ -67,21 +67,73 @@ class HashMap:
 
     def put(self, key: str, value: object) -> None:
         """
-        TODO: Write this implementation
+        This method takes a key and value as parameters and adds the node to the hash map.  If the given key already exists in the hash map, its associated value is replaced with the new value.
         """
-        pass
+        # Hash the key and locate the bucket that matches the hashed key.
+        hashed_val = self.hash_function(key)
+        hashed_index = hashed_val % self.buckets.length()
+        bucket = self.buckets.get_at_index(hashed_index)
+
+        # If the bucket is empty, add the kay/value pair.
+        if bucket.length() == 0:
+            bucket.insert(key, value)
+            self.size += 1
+
+        # If the bucket is already occupied but it is not the same key, insert the node at the beginning of the linked list.
+        elif bucket.length() != 0 and bucket.contains(key) is None:
+            bucket.insert(key, value)
+            self.size += 1
+
+        # If the bucket is already occupied and the key is the same, replace the value.
+        elif bucket.length() != 0 and bucket.contains(key) is not None:
+            bucket.remove(key)
+            bucket.insert(key, value)
+            # No need to update self.size.
+        
+        else:
+            return
 
     def remove(self, key: str) -> None:
         """
-        TODO: Write this implementation
+        This method takes a key as parameter and removes its associated value from the hash map.  If the key is not in the hash map, the method does nothing.
         """
-        pass
+        # If the hash map is empty, return.
+        if self.size == 0:
+            return
+
+        # Hash the key and locate the bucket that matches the hashed key.
+        hashed_val = self.hash_function(key)
+        hashed_index = hashed_val % self.buckets.length()
+        bucket = self.buckets.get_at_index(hashed_index)
+
+        # If the bucket is occupied.
+        if bucket.length != 0:
+            # If the key is found in the bucket, remove the node.
+            if bucket.contains(key) is not None:
+                bucket.remove(key)
+                self.size -= 1
+
+        return
 
     def contains_key(self, key: str) -> bool:
         """
-        TODO: Write this implementation
+        This method takes a key as parameter and searches it in the hash map.  If the given key is in the hash map, it returns True.  Otherwise, it returns False.
         """
-        pass
+        # If the hash map is empty, return False.
+        if self.size == 0:
+            return False
+        
+        # Hash the key and locate the bucket that matches the hashed key.
+        hashed_val = self.hash_function(key)
+        hashed_index = hashed_val % self.buckets.length()
+        bucket = self.buckets.get_at_index(hashed_index)
+
+        # If the key is found in the bucket.
+        if bucket.contains(key) is not None:
+            return True
+        
+        else:
+            return False
 
     def empty_buckets(self) -> int:
         """
