@@ -14,7 +14,7 @@ class SLNode:
 
     def __str__(self):
         """ 
-        Return the content of the node in human-readable form. 
+        Return the content of the node in a human-readable form. 
         """
         return '(' + str(self.key) + ': ' + str(self.value) + ')'
 
