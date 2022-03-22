@@ -1,6 +1,6 @@
 # Author: Elliott Larsen
-# Date: 
-# Description: 
+# Date: 3/21/2022
+# Description: This will be used in hash_map_chaining.py and hash_map_open_addressing.py.
 
 
 class SLNode:
